@@ -3,6 +3,7 @@
 ## updated).  Leave this be for now but we'll need to go back and fix
 ## this up.
 download_rstudio <- function(path, target = "windows", progress = TRUE) {
+  dir.create(path, FALSE, TRUE)
   base <- "https://download1.rstudio.org"
   loc <- c(windows = "RStudio-%s.exe",
            macosx = "RStudio-%s.dmg",
@@ -33,5 +34,6 @@ download_rstudio <- function(path, target = "windows", progress = TRUE) {
   current <- readLines("https://download1.rstudio.org/current.ver",
                        warn = FALSE)
   url <- file.path(base, sprintf(loc[target], current))
-  provisionr:::download_files(url, path, labels = target, progress = progress)
+  provisionr::download_files(url, path, labels = target,
+                             count = length(url) > 1L, progress = progress)
 }

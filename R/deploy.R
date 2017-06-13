@@ -31,29 +31,23 @@ deploy <- function(path, progress = TRUE) {
   if (length(r_version) != 1L) {
     stop("Not yet supported")
   }
-  target <- cfg$target %||% "ALL"
   suggests <- cfg$suggests
+  target <- cfg$target %||% "ALL"
+  target_includes_windows <- target %in% c("ALL", "windows")
 
   ## Then we start the fun part:
   provisionr::download_cran(packages, path, r_version, target, suggests,
                             package_sources, progress)
-  if (cfg$r) {
-    path_r <- file.path(path, "r")
-    dir.create(path_r, FALSE, TRUE)
-    provisionr:::download_r(path_r, target, r_version, progress = progress)
-  }
-  if (target == "ALL" || target == "windows") {
-    if (cfg$rtools) {
-      path_rtools <- file.path(path, "rtools")
-      dir.create(path_rtools, FALSE, TRUE)
-      provisionr:::download_rtools(path_rtools, r_version, progress = progress)
-    }
-  }
 
+  path_extra <- file.path(path, "extra")
+  if (cfg$r) {
+    download_r(path_extra, target, r_version, progress = progress)
+  }
+  if (cfg$rtools && target_includes_windows) {
+    download_rtools(path_extra, r_version, progress = progress)
+  }
   if (cfg$rstudio) {
-    path_rstudio <- file.path(path, "rstudio")
-    dir.create(path_rstudio, FALSE, TRUE)
-    download_rstudio(path_rstudio, target, progress = progress)
+    download_rstudio(path_extra, target, progress = progress)
   }
 
   path

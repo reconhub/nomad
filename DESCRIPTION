@@ -10,6 +10,7 @@ Description: Collects together all the bits required to easily deploy R
     in situations with limited internet.
 License: MIT + file LICENSE
 Imports:
-  provisionr,
-  rversions,
+  provisionr (>= 0.1.2),
   yaml
+Remotes:
+  richfitz/provisionr
