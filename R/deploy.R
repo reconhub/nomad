@@ -29,6 +29,8 @@ deploy <- function(path, progress = TRUE) {
 
   r_version <- cfg$r_version %||% as.character(getRversion())
   if (length(r_version) != 1L) {
+    ## The trick here would be to support just looping over versions
+    ## at this point I think.
     stop("Not yet supported")
   }
   suggests <- cfg$suggests
@@ -43,11 +45,14 @@ deploy <- function(path, progress = TRUE) {
   if (cfg$r) {
     download_r(path_extra, target, r_version, progress = progress)
   }
+  if (cfg$rstudio) {
+    download_rstudio(path_extra, target, progress = progress)
+  }
   if (cfg$rtools && target_includes_windows) {
     download_rtools(path_extra, r_version, progress = progress)
   }
-  if (cfg$rstudio) {
-    download_rstudio(path_extra, target, progress = progress)
+  if (cfg$git && target_includes_windows) {
+    download_git(path_extra, progress = progress)
   }
 
   path
