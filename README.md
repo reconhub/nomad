@@ -1,17 +1,7 @@
-# *deployer*
+# nomad
 
-The *RECON deployer* project focusses on distributing an R environment for outbreak response on a thumb drive. This environment should provide:
+[![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/latest/wip.svg)](http://www.repostatus.org/#wip)
 
-* the latest stable version of R for Windows and MacOSX
+Pack up R to take away
 
-* the corresponding version of Rtools
-
-* the latest stable version of Rstudio for Windows and MacOSX
-
-* a large selection of relevant R packages hosted on CRAN
-
-* all RECON packages hosted on github (sources)
-
-* some other packages hosted on github, required by the above
-
-* scripts to permit seemless installation of the local CRAN and github packages 
+![]((https://media.giphy.com/media/AdDvHL64m5qbS/giphy.gif)

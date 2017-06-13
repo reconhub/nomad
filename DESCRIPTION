@@ -1,13 +1,13 @@
-Package: deployer
-Title: Deploy R
+Package: nomad
+Title: Create Portable R Repositories
 Version: 0.0.1
-Authors@R: c(person("Thibaut", "Jombart", email = "thibautjombart@gmail.com",
+Authors@R: c(person("Rich", "FitzJohn", email = "rich.fitzjohn@gmail.com",
                     role = c("aut", "cre")),
-             person("Rich", "FitzJohn", email = "rich.fitzjohn@gmail.com",
-                    role = "aut"))
-Maintainer: Thibaut Jombart <thibautjombart@gmail.com>
-Description: Collects together all the bits required to easily deploy R
-    in situations with limited internet.
+             person("Thibaut", "Jombart", email = "thibautjombart@gmail.com",
+                    role = c("aut")))
+Maintainer: Rich FitzJohn <rich.fitzjohn@gmail.com>
+Description: Collects together all the bits required to easily install
+  packages from R in situations with limited internet.
 License: MIT + file LICENSE
 Imports:
   curl,

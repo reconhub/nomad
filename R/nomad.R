@@ -4,11 +4,11 @@
 ##' @param path Path to download things to
 ##' @param progress Print a progress bar for each downloaded file
 ##' @export
-deploy <- function(path, progress = TRUE) {
+pack <- function(path, progress = TRUE) {
   if (!file.exists(path) || !file.info(path)$isdir) {
     stop("'path' must be an existing directory")
   }
-  cfg <- deploy_config(path)
+  cfg <- nomad_config(path)
 
   packages_file <-
     file.path(path, cfg$packages %||% "packages.txt")
@@ -62,7 +62,7 @@ filter_comments <- function(x) {
   x[!grepl("^\\s*(#.*)?$", x)]
 }
 
-deploy_config <- function(path) {
+nomad_config <- function(path) {
   ret <- list(r_version = NULL,
               target = NULL,
               suggests = FALSE,
@@ -73,7 +73,7 @@ deploy_config <- function(path) {
               r = TRUE,
               rstudio = TRUE,
               rtools = TRUE)
-  file <- file.path(path, "deployer.yml")
+  file <- file.path(path, "nomad.yml")
   if (file.exists(file)) {
     d <- yaml_read(file)
     extra <- setdiff(names(d), names(ret))
