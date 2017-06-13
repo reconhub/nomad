@@ -14,3 +14,4 @@ Imports:
   yaml
 Remotes:
   richfitz/provisionr
+RoxygenNote: 6.0.1
