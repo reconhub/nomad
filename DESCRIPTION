@@ -10,8 +10,6 @@ Description: Collects together all the bits required to easily install
   packages from R in situations with limited internet.
 License: MIT + file LICENSE
 Imports:
-  curl,
-  jsonlite,
   provisionr (>= 0.1.2),
   yaml
 Remotes:
