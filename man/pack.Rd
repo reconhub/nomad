@@ -4,12 +4,17 @@
 \alias{pack}
 \title{Create recon usb stick}
 \usage{
-pack(path, progress = TRUE)
+pack(path, progress = NULL)
 }
 \arguments{
-\item{path}{Path to download things to}
+\item{path}{Path to download things to.  This directory must
+already exist, and may contain a \code{nomad.yml} file to
+control the behaviour of nomad.}
 
-\item{progress}{Print a progress bar for each downloaded file}
+\item{progress}{Print a progress bar for each downloaded file.
+The default \code{NULL} respects the value of
+\code{getOption(provisionr.download.progress)} which you can set
+to \code{FALSE} to prevent the printing of progress bars.}
 }
 \description{
 Create recon usb stick
