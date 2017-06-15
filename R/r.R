@@ -38,7 +38,7 @@ url_r <- function(target, r_version) {
     }
     is_linux <- target == "linux"
     if (any(is_linux)) {
-      target[!is_linux] <- "source"
+      target[is_linux] <- "source"
     }
     err <- setdiff(target, valid)
     if (length(err)) {

@@ -22,3 +22,9 @@ test_that("url_r: target invalid", {
 test_that("rtools old", {
   expect_error(url_rtools("2.14.1"), "R version is too old")
 })
+
+test_that("linux downloads source R", {
+  expect_equal(names(url_r("linux", NULL)), "source")
+  expect_equal(names(url_r(c("windows", "linux"), NULL)),
+               c("windows", "source"))
+})
