@@ -4,4 +4,4 @@ cache: packages
 r_packages:
   - covr
 after_success:
-  - if [[ "${R_CODECOV}" ]]; then R -e 'covr::codecov()'; fi
+  - R -e 'covr::codecov()'
