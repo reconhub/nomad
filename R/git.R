@@ -5,7 +5,7 @@ download_git <- function(path, progress = NULL) {
   re <- "^Git-(.*)-64-bit.exe"
   i <- grep(re, dat$assets$name)
   if (length(i) != 1L) {
-    stop("Unexpected response from github release")
+    stop("Unexpected response from github release") # nocov
   }
   label <- sprintf("git (%s)", sub(re, "\\1", dat$assets$name[i]))
   provisionr::download_files(dat$assets$browser_download_url[i],

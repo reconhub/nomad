@@ -1,6 +1,19 @@
 download_r <- function(path, target = "windows", r_version = NULL,
                        progress = NULL) {
   dir.create(path, FALSE, TRUE)
+  url <- url_r(target, r_version)
+  provisionr::download_files(url, path, labels = names(url),
+                             count = length(url) > 1L, progress = progress)
+  file.path(path, basename(url))
+}
+
+download_rtools <- function(path, r_version = NULL, progress = progress) {
+  dir.create(path, FALSE, TRUE)
+  url <- url_rtools(r_version)
+  provisionr::download_files(url, path, count = FALSE, progress = progress)
+}
+
+url_r <- function(target, r_version) {
   r_version <- provisionr::check_r_version(r_version)
   version_str <- as.character(r_version)
 
@@ -16,7 +29,7 @@ download_r <- function(path, target = "windows", r_version = NULL,
                              as.integer(r_version[1,1]), version_str)
 
   valid <- names(loc)
-  if (target == "ALL") {
+  if (identical(unname(target), "ALL")) {
     target <- valid
   } else {
     is_mac <- grepl("^macosx", target)
@@ -35,15 +48,11 @@ download_r <- function(path, target = "windows", r_version = NULL,
 
   CRAN <- "https://cloud.r-project.org"
   url <- file.path(CRAN, sprintf(loc[target], version_str))
-
-  provisionr::download_files(url, path, labels = target,
-                             count = length(url) > 1L, progress = progress)
-
-  file.path(path, basename(url))
+  names(url) <- target
+  url
 }
 
-download_rtools <- function(path, r_version = NULL, progress = progress) {
-  dir.create(path, FALSE, TRUE)
+url_rtools <- function(r_version) {
   r_version <- provisionr::check_r_version(r_version)
 
   v <- c("34" = numeric_version("3.3.0"),
@@ -56,6 +65,5 @@ download_rtools <- function(path, r_version = NULL, progress = progress) {
   }
   CRAN <- "https://cloud.r-project.org"
   rtools_path <- sprintf("bin/windows/Rtools/Rtools%s.exe", names(i)[[1L]])
-  url <- file.path(CRAN, rtools_path)
-  provisionr::download_files(url, path, count = FALSE, progress = progress)
+  file.path(CRAN, rtools_path)
 }
