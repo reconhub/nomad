@@ -9,7 +9,9 @@ test_that("pack", {
   on.exit(unlink(path, recursive = TRUE))
   writeLines("git: true", file.path(path, "nomad.yml"))
   writeLines("ape", file.path(path, "package_list.txt"))
+
   expect_equal(pack(path, PROGRESS), path)
+
   v2 <- as.character(getRversion()[1, 1:2])
   v3 <- as.character(getRversion())
 
@@ -49,4 +51,33 @@ test_that("require existing directory", {
   expect_error(pack(path), "'path' must be an existing directory")
   writeLines(character(0), path)
   expect_error(pack(path), "'path' must be an existing directory")
+})
+
+test_that("use package sources", {
+  skip_on_cran()
+  skip_if_no_internet()
+  path <- tempfile()
+  dir.create(path)
+  on.exit(unlink(path, recursive = TRUE))
+  writeLines("git: false\nr: false\nrstudio: false\nrtools: false",
+             file.path(path, "nomad.yml"))
+  writeLines("syncr", file.path(path, "package_list.txt"))
+  writeLines("richfitz/syncr", file.path(path, "package_sources.txt"))
+
+  expect_equal(pack(path, PROGRESS), path)
+})
+
+test_that("use repository", {
+  skip_on_cran()
+  skip_if_no_internet()
+  path <- tempfile()
+  dir.create(path)
+  on.exit(unlink(path, recursive = TRUE))
+  writeLines("git: false\nr: false\nrstudio: false\nrtools: false",
+             file.path(path, "nomad.yml"))
+  writeLines("syncr", file.path(path, "package_list.txt"))
+  writeLines("repo::https://richfitz.github.io/drat",
+             file.path(path, "package_sources.txt"))
+  pack(path, PROGRESS)
+  expect_equal(pack(path, PROGRESS), path)
 })

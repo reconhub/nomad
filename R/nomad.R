@@ -23,8 +23,12 @@ pack <- function(path, progress = NULL) {
   ## Then we start the fun part:
   message("nomad: cran")
   provisionr::download_cran(cfg$package_list, cfg$path,
-                            cfg$r_version, cfg$target, cfg$suggests,
-                            cfg$package_sources, progress)
+                            r_version = cfg$r_version,
+                            target = cfg$target,
+                            suggests = cfg$suggests,
+                            package_sources = cfg$package_sources,
+                            missing_index_is_error = FALSE,
+                            progress = progress)
 
   path_extra <- file.path(cfg$path, "extra")
   if (cfg$r) {
