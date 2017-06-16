@@ -84,3 +84,7 @@ test_that("validation", {
   expect_error(nomad_config(path),
                "'nomad.yml:target' must be a character vector")
 })
+
+test_that("example config is OK", {
+  expect_silent(nomad_config(system.file("nomad.yml", package = "nomad")))
+})

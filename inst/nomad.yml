@@ -34,7 +34,7 @@ suggests: false
 # Optionally you can change the location of the package list.  By
 # default it will be stored in the file 'packages.txt'.  This path is
 # interpreted relative to the deploy root
-packages_list: ~
+package_list: ~
 
 # Optionally you can change the location of the package sources.  By
 # default it will be stored in the file 'packages_sources.txt'.  This
