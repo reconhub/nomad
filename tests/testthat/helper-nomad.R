@@ -9,4 +9,6 @@ has_internet <- function() {
   !is.null(suppressWarnings(utils::nsl("www.google.com")))
 }
 
+Sys.setenv(R_TESTS = "")
+
 PROGRESS <- FALSE
