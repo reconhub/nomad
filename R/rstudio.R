@@ -11,12 +11,14 @@ download_rstudio <- function(path, target = "windows", progress = TRUE) {
 
 url_rstudio <- function(target, version = NULL) {
   base <- "https://download1.rstudio.org"
+  loc_linux <- c(
+    ## ubuntu32 = "rstudio-%s-i386.deb",
+    ubuntu64 = "rstudio-%s-amd64.deb",
+    ## fedora32 = "rstudio-%s-i686.rpm",
+    fedora64 = "rstudio-%s-x86_64.rpm")
   loc <- c(windows = "RStudio-%s.exe",
            macosx = "RStudio-%s.dmg",
-           ## ubuntu32 = "rstudio-%s-i386.deb",
-           ubuntu64 = "rstudio-%s-amd64.deb",
-           ## fedora32 = "rstudio-%s-i686.rpm",
-           fedora64 = "rstudio-%s-x86_64.rpm")
+           loc_linux)
 
   if (identical(target, "ALL")) {
     target <- names(loc)
@@ -27,8 +29,7 @@ url_rstudio <- function(target, version = NULL) {
     }
     is_linux <- target == "linux"
     if (any(is_linux)) {
-      target <- c(target[!is_linux],
-                  c("ubuntu32", "ubuntu64", "fedora32", "fedora64"))
+      target <- c(target[!is_linux], names(loc_linux))
     }
   }
   err <- setdiff(target, names(loc))

@@ -12,6 +12,12 @@ test_that("url_rstudio: target all", {
                sort(c("windows", "macosx", "ubuntu64", "fedora64")))
 })
 
+test_that("url_rstudio: linux", {
+  u <- url_rstudio("linux", "1.2.3")
+  expect_equal(sort(names(u)),
+               sort(c("ubuntu64", "fedora64")))
+})
+
 test_that("url_rstudio: target invalid", {
   expect_error(url_rstudio("beos", NULL), "Invalid target beos")
 })
