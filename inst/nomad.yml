@@ -3,9 +3,9 @@
 # The values here match up with the defaults.  By default nothing is
 # required (including the presence of a configuration file).
 
-# Specify an R version (or versions) to control the R version.  By
-# default we'll target the R version that is currently running.  You
-# can provide multiple versions like:
+# Specify a single R version here.  By default we'll target the R
+# version that is currently running.  You can provide multiple
+# versions like:
 #
 # r_version:
 #   - 3.2.3
@@ -34,7 +34,7 @@ suggests: false
 # Optionally you can change the location of the package list.  By
 # default it will be stored in the file 'packages.txt'.  This path is
 # interpreted relative to the deploy root
-packages: ~
+packages_list: ~
 
 # Optionally you can change the location of the package sources.  By
 # default it will be stored in the file 'packages_sources.txt'.  This
