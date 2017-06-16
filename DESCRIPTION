@@ -10,7 +10,7 @@ Description: Collects together all the bits required to easily install
   packages from R in situations with limited internet.
 License: MIT + file LICENSE
 Imports:
-  provisionr (>= 0.1.2),
+  provisionr (>= 0.1.3),
   yaml
 Remotes:
   richfitz/provisionr
