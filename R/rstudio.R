@@ -4,7 +4,7 @@
 ## this up.
 download_rstudio <- function(path, target = "windows", progress = TRUE) {
   dir.create(path, FALSE, TRUE)
-  url <- url_studio(target)
+  url <- url_rstudio(target)
   provisionr::download_files(url, path, labels = names(url),
                              count = length(url) > 1L, progress = progress)
 }
