@@ -49,8 +49,8 @@ filter_comments <- function(x) {
 nomad_prepare <- function(cfg) {
   package_list_file <- file.path(cfg$path, cfg$package_list)
   if (!file.exists(package_list_file)) {
-    stop(sprintf("Did not find '%s' within '%s'",
-                 basename(package_list_file), cfg$path))
+    stop(sprintf("Did not find %s within %s",
+                 squote(basename(package_list_file)), squote(cfg$path)))
   }
   cfg$package_list <- filter_comments(readLines(package_list_file))
 
