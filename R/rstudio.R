@@ -4,12 +4,18 @@
 ## this up.
 download_rstudio <- function(path, target = "windows", progress = TRUE) {
   dir.create(path, FALSE, TRUE)
+  url <- url_studio(target)
+  provisionr::download_files(url, path, labels = names(url),
+                             count = length(url) > 1L, progress = progress)
+}
+
+url_rstudio <- function(target, version = NULL) {
   base <- "https://download1.rstudio.org"
   loc <- c(windows = "RStudio-%s.exe",
            macosx = "RStudio-%s.dmg",
-           ubuntu32 = "rstudio-%s-i386.deb",
+           ## ubuntu32 = "rstudio-%s-i386.deb",
            ubuntu64 = "rstudio-%s-amd64.deb",
-           fedora32 = "rstudio-%s-i686.rpm",
+           ## fedora32 = "rstudio-%s-i686.rpm",
            fedora64 = "rstudio-%s-x86_64.rpm")
 
   if (identical(target, "ALL")) {
@@ -30,10 +36,13 @@ download_rstudio <- function(path, target = "windows", progress = TRUE) {
     stop("Invalid target ", paste(err, collapse = ", "))
   }
 
-  ## Try and get the current verison:
-  current <- readLines("https://download1.rstudio.org/current.ver",
-                       warn = FALSE)
-  url <- file.path(base, sprintf(loc[target], current))
-  provisionr::download_files(url, path, labels = target,
-                             count = length(url) > 1L, progress = progress)
+  ## Try and get the version verison:
+  if (is.null(version)) {
+    version <- readLines("https://download1.rstudio.org/current.ver",
+                         warn = FALSE)
+  }
+
+  ret <- file.path(base, sprintf(loc[target], version))
+  names(ret) <- target
+  ret
 }
