@@ -35,8 +35,8 @@ nomad_config <- function(path) {
     assert_scalar_logical_or_null(d$r, fieldname("r"))
     assert_scalar_logical_or_null(d$rstudio, fieldname("rstudio"))
     assert_scalar_logical_or_null(d$rtools, fieldname("rtools"))
-    assert_character_or_null(d$name)
-    assert_character_or_null(d$version)
+    assert_character_or_null(d$name, fieldname("name"))
+    assert_character_or_null(d$version, fieldname("version"))
     ## NOTE: modifyList does exactly the wrong thing here and so I am
     ## avoiding it.
     keep <- d[lengths(d) > 0]
