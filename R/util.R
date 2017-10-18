@@ -48,3 +48,7 @@ assert_scalar_logical <- function(x, name = deparse(substitute(x))) {
     stop(sprintf("%s must not be missing", squote(name)))
   }
 }
+
+is_directory <- function(path) {
+  file.info(path)$isdir
+}

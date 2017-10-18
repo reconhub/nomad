@@ -81,3 +81,20 @@ test_that("use repository", {
   pack(path, PROGRESS)
   expect_equal(pack(path, PROGRESS), path)
 })
+
+test_that("build", {
+  skip_on_cran()
+  skip_if_no_internet()
+
+  devtools::load_all()
+  ref <- "reconhub/nomad/tests/testthat/example@build"
+  dest <- tempfile()
+  res <- build(ref, dest)
+
+  expected <- c("bin", "src", "nomad.yml", "package_list.txt", "README.md")
+  expect_true(all(expected %in% dir(res)))
+
+  expect_error(build(ref, dest), "'dest' must be an empty directory")
+  expect_error(build(ref, file.path(dest, "README.md")),
+               "'dest' must be a directory")
+})
