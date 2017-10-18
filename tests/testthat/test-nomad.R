@@ -86,8 +86,7 @@ test_that("build", {
   skip_on_cran()
   skip_if_no_internet()
 
-  devtools::load_all()
-  ref <- "reconhub/nomad/tests/testthat/example@build"
+  ref <- "reconhub/nomad/tests/testthat/example"
   dest <- tempfile()
   res <- build(ref, dest)
 
@@ -97,4 +96,9 @@ test_that("build", {
   expect_error(build(ref, dest), "'dest' must be an empty directory")
   expect_error(build(ref, file.path(dest, "README.md")),
                "'dest' must be a directory")
+
+  expect_message(source(file.path(dest, "activate.R"), chdir = TRUE),
+                 "Nomad is activated")
+  expect_equal(normalizePath(getOption("nomad.location")),
+               normalizePath(res))
 })

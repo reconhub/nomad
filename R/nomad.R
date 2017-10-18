@@ -48,5 +48,7 @@ pack <- function(path, progress = NULL) {
     download_git(path_extra, progress = progress)
   }
 
+  file.copy(system.file("activate.R", package = "nomad"), path)
+
   invisible(path)
 }
