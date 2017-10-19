@@ -16,7 +16,8 @@ test_that("pack", {
   v3 <- as.character(getRversion())
 
   expect_equal(sort(dir(path)),
-               sort(c("bin", "extra", "nomad.yml", "package_list.txt", "src")))
+               sort(c("activate.R", "bin", "extra", "nomad.yml",
+                      "package_list.txt", "src")))
   expect_equal(sort(dir(file.path(path, "bin"))),
                sort(c("macosx", "windows")))
 
