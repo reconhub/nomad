@@ -15,15 +15,21 @@ download_rtools <- function(path, r_version = NULL, progress = progress) {
 
 url_r <- function(target, r_version) {
   r_version <- provisionr::check_r_version(r_version)
+  r_release <- provisionr::check_r_version("release")
   version_str <- as.character(r_version)
 
-  if (r_version == provisionr::check_r_version("release")) {
+  if (r_version == r_release) {
     loc <- c(windows = sprintf("bin/windows/base/R-%s-win.exe", version_str),
              macosx = sprintf("bin/macosx/R-%s.pkg", version_str))
   } else {
+    if (r_version[1, 1:2] == r_release[1, 1:2]) {
+      mac_path <- "bin/macosx/R-%s.pkg"
+    } else {
+      mac_path <- "bin/macosx/old/R-%s.pkg"
+    }
     loc <- c(windows = sprintf("bin/windows/base/old/%s/R-%s-win.exe",
                                version_str, version_str),
-             macosx = sprintf("bin/macosx/old/R-%s.pkg", version_str))
+             macosx = sprintf(mac_path, version_str))
   }
   loc[["source"]] <- sprintf("src/base/R-%d/R-%s.tar.gz",
                              as.integer(r_version[1,1]), version_str)
