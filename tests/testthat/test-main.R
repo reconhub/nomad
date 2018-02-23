@@ -11,6 +11,8 @@ test_that("parse", {
   expect_error(main_args(c("--no-progress")), "Usage:")
   expect_error(main_args(c("--progress", "x")), "Usage:")
   expect_error(main_args(c("x", "y")), "Usage:")
+
+  expect_error(main_args(c("--help")), "Usage:")
 })
 
 

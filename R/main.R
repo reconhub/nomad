@@ -11,6 +11,10 @@ main_args <- function(args) {
 Options:
   --no-progress     Suppress progress bar" -> usage
 
+  if ("--help" %in% args) {
+    stop(usage, call. = FALSE)
+  }
+
   if ("--no-progress" %in% args) {
     progress <- FALSE
     args <- setdiff(args, "--no-progress")
