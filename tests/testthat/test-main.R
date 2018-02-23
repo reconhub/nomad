@@ -20,7 +20,6 @@ test_that("write script", {
   path <- write_script(tempfile())
   expect_true(file.exists(path))
   expect_match(readLines(path), "nomad:::main()", fixed = TRUE, all = FALSE)
-  expect_equal(file.info(path)$mode, as.octmode("755"))
 })
 
 
