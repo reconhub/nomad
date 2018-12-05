@@ -21,6 +21,10 @@ build <- function(ref, dest, progress = NULL) {
   path <- setdiff(dir(tmp), file)
   stopifnot(length(path) == 1L)
   path <- file.path(tmp, path)
+  if (!is.null(dat$subdir)) {
+    path <- file.path(path, dat$subdir)
+  }
+
   build_path(path, dest, progress)
 }
 
@@ -38,13 +42,6 @@ build_path <- function(path, dest, progress = NULL) {
     }
   } else {
     dir.create(dest, FALSE, TRUE)
-  }
-
-  stopifnot(length(path) == 1L)
-  path <- file.path(tmp, path)
-
-  if (!is.null(dat$subdir)) {
-    path <- file.path(path, dat$subdir)
   }
 
   cfg <- nomad_config(path)
