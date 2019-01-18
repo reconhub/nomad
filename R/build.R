@@ -11,6 +11,28 @@
 ##' @param progress Passed through to \code{nomad::pack}
 ##' @export
 build <- function(ref, dest, progress = NULL) {
+  dat <- provisionr:::parse_remote(ref)
+  url_zipball <- dat$url_package
+  tmp <- tempfile()
+  dir.create(tmp, FALSE, TRUE)
+  file <- sprintf("%s-%s.zip", dat$username, dat$repo)
+  provisionr::download_files(url_zipball, tmp, dest_file = file, count = FALSE)
+  unzip(file.path(tmp, file), exdir = tmp)
+  path <- setdiff(dir(tmp), file)
+  stopifnot(length(path) == 1L)
+  path <- file.path(tmp, path)
+  if (!is.null(dat$subdir)) {
+    path <- file.path(path, dat$subdir)
+  }
+
+  build_path(path, dest, progress)
+}
+
+
+##' @export
+##' @rdname build
+##' @param path Path to source, when using \code{build_path}
+build_path <- function(path, dest, progress = NULL) {
   if (file.exists(dest)) {
     if (!is_directory(dest)) {
       stop("'dest' must be a directory")
@@ -20,22 +42,6 @@ build <- function(ref, dest, progress = NULL) {
     }
   } else {
     dir.create(dest, FALSE, TRUE)
-  }
-
-  dat <- provisionr:::parse_remote(ref)
-  url_zipball <- dat$url_package
-
-  tmp <- tempfile()
-  dir.create(tmp, FALSE, TRUE)
-  file <- sprintf("%s-%s.zip", dat$username, dat$repo)
-  provisionr::download_files(url_zipball, tmp, dest_file = file, count = FALSE)
-  unzip(file.path(tmp, file), exdir = tmp)
-  path <- setdiff(dir(tmp), file)
-  stopifnot(length(path) == 1L)
-  path <- file.path(tmp, path)
-
-  if (!is.null(dat$subdir)) {
-    path <- file.path(path, dat$subdir)
   }
 
   cfg <- nomad_config(path)

@@ -2,9 +2,12 @@
 % Please edit documentation in R/build.R
 \name{build}
 \alias{build}
+\alias{build_path}
 \title{Build a nomad archive from github}
 \usage{
 build(ref, dest, progress = NULL)
+
+build_path(path, dest, progress = NULL)
 }
 \arguments{
 \item{ref}{A reference in \code{username/repo} format.  Branches
@@ -14,6 +17,8 @@ may be used.}
 it exists, otherwise specify a new place.}
 
 \item{progress}{Passed through to \code{nomad::pack}}
+
+\item{path}{Path to source, when using \code{build_path}}
 }
 \description{
 Build a nomad archive from a github repository
