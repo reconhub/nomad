@@ -5,17 +5,25 @@
 download_rstudio <- function(path, target = "windows", progress = TRUE) {
   dir.create(path, FALSE, TRUE)
   url <- url_rstudio(target)
-  provisionr::download_files(url, path, labels = names(url),
-                             count = length(url) > 1L, progress = progress)
+  res <- try({
+    provisionr::download_files(url, path, labels = names(url),
+                               count = length(url) > 1L, progress = progress)
+  })
+  if (inherits(res, "try-error")) {
+    url <- gsub("-1.exe", ".exe", res)
+    provisionr::download_files(url, path, labels = names(url),
+                               count = length(url) > 1L, progress = progress)
+
+  }
 }
 
 url_rstudio <- function(target, version = NULL) {
   base <- "https://download1.rstudio.org"
   loc_linux <- c(
-    ## ubuntu32 = "rstudio-%s-i386.deb",
-    ubuntu64 = "rstudio-%s-amd64.deb",
-    ## fedora32 = "rstudio-%s-i686.rpm",
-    fedora64 = "rstudio-%s-x86_64.rpm")
+                 ## ubuntu32 = "rstudio-%s-i386.deb",
+                 ubuntu64 = "rstudio-%s-amd64.deb",
+                 ## fedora32 = "rstudio-%s-i686.rpm",
+                 fedora64 = "rstudio-%s-x86_64.rpm")
   loc <- c(windows = "RStudio-%s.exe",
            macosx = "RStudio-%s.dmg",
            loc_linux)
