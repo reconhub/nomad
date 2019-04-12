@@ -19,6 +19,14 @@ download_rstudio <- function(path, target = "windows", progress = TRUE) {
 }
 
 url_rstudio <- function(target, version = NULL) {
+  # Note to future nomads:
+  #
+  # You've got 404
+  # Dispare no more and seek out
+  # a new URL
+  #
+  # Just use the source, $luke
+  # https://www.rstudio.com/products/rstudio/download/#download
   base <- "https://download1.rstudio.org/desktop"
   loc_linux <- c(
                  ## ubuntu32 = "rstudio-%s-i386.deb",
