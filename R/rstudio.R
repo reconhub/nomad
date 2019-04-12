@@ -8,9 +8,10 @@ download_rstudio <- function(path, target = "windows", progress = TRUE) {
   res <- try({
     provisionr::download_files(url, path, labels = names(url),
                                count = length(url) > 1L, progress = progress)
-  })
+  }, silent = TRUE)
   if (inherits(res, "try-error")) {
-    url <- gsub("-1.exe", ".exe", res)
+    url <- gsub("-1\\.([a-z]{3})", ".\\1", url)
+    print(url)
     provisionr::download_files(url, path, labels = names(url),
                                count = length(url) > 1L, progress = progress)
 
@@ -18,22 +19,22 @@ download_rstudio <- function(path, target = "windows", progress = TRUE) {
 }
 
 url_rstudio <- function(target, version = NULL) {
-  base <- "https://download1.rstudio.org"
+  base <- "https://download1.rstudio.org/desktop"
   loc_linux <- c(
                  ## ubuntu32 = "rstudio-%s-i386.deb",
-                 ubuntu64 = "rstudio-%s-amd64.deb",
+                 ubuntu64 = "%s/rstudio-%s-amd64.deb",
                  ## fedora32 = "rstudio-%s-i686.rpm",
-                 fedora64 = "rstudio-%s-x86_64.rpm")
-  loc <- c(windows = "RStudio-%s.exe",
-           macosx = "RStudio-%s.dmg",
+                 fedora64 = "%s/rstudio-%s-x86_64.rpm")
+  loc <- c(windows = "windows/RStudio-%s.exe",
+           macos   = "macos/RStudio-%s.dmg",
            loc_linux)
 
   if (identical(target, "ALL")) {
     target <- names(loc)
   } else {
-    is_mac <- grepl("^macosx", target)
+    is_mac <- grepl("^macos", target)
     if (any(is_mac)) {
-      target <- c(target[!is_mac], "macosx")
+      target <- c(target[!is_mac], "macos")
     }
     is_linux <- target == "linux"
     if (any(is_linux)) {
