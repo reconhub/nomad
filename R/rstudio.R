@@ -30,9 +30,9 @@ url_rstudio <- function(target, version = NULL) {
   base <- "https://download1.rstudio.org/desktop"
   loc_linux <- c(
                  ## ubuntu32 = "rstudio-%s-i386.deb",
-                 ubuntu64 = "%s/rstudio-%s-amd64.deb",
+                 ubuntu64 = "trusty/rstudio-%s-amd64.deb",
                  ## fedora32 = "rstudio-%s-i686.rpm",
-                 fedora64 = "%s/rstudio-%s-x86_64.rpm")
+                 fedora64 = "centos7/x86_64/rstudio-%s-x86_64.rpm")
   loc <- c(windows = "windows/RStudio-%s.exe",
            macos   = "macos/RStudio-%s.dmg",
            loc_linux)

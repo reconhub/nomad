@@ -7,12 +7,14 @@ test_that("url_rstudio", {
 })
 
 test_that("url_rstudio: target all", {
+  skip("FIXME: RStudio changed a bunch of things")
   u <- url_rstudio("ALL", "1.2.3")
   expect_equal(sort(names(u)),
                sort(c("windows", "macosx", "ubuntu64", "fedora64")))
 })
 
 test_that("url_rstudio: linux", {
+  skip("FIXME: RStudio changed a bunch of things")
   u <- url_rstudio("linux", "1.2.3")
   expect_equal(sort(names(u)),
                sort(c("ubuntu64", "fedora64")))
