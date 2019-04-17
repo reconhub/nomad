@@ -5,18 +5,18 @@
 download_rstudio <- function(path, target = "windows", progress = TRUE) {
   dir.create(path, FALSE, TRUE)
   url <- url_rstudio(target)
-  res <- try({
-    provisionr::download_files(url, path, labels = names(url),
-                               count = length(url) > 1L, progress = progress)
-  }, silent = TRUE)
-  if (inherits(res, "try-error")) {
-    url <- gsub("-1\\.([a-z]{3})", ".\\1", url)
-    print(url)
-    provisionr::download_files(url, path, labels = names(url),
-                               count = length(url) > 1L, progress = progress)
-
-  }
+  provisionr::download_files(url, path, labels = names(url),
+                             count = length(url) > 1L, progress = progress)
 }
+# "https://download1.rstudio.org/desktop/windows/RStudio-1.2.1335.exe"
+# "https://download1.rstudio.org/desktop/macos/RStudio-1.2.1335.dmg"
+# "https://download1.rstudio.org/desktop/trusty/amd64/rstudio-1.2.1335-amd64.deb"
+# "https://download1.rstudio.org/desktop/xenial/amd64/rstudio-1.2.1335-amd64.deb"
+# "https://download1.rstudio.org/desktop/bionic/amd64/rstudio-1.2.1335-amd64.deb"
+# "https://download1.rstudio.org/desktop/centos7/x86_64/rstudio-1.2.1335-x86_64.rpm"
+# "https://download1.rstudio.org/desktop/debian9/x86_64/rstudio-1.2.1335-amd64.deb"
+# "https://download1.rstudio.org/desktop/opensuse15/x86_64/rstudio-1.2.1335-x86_64.rpm"
+# "https://download1.rstudio.org/desktop/opensuse/x86_64/rstudio-1.2.1335-x86_64.rpm"
 
 url_rstudio <- function(target, version = NULL) {
   # Note to future nomads:
@@ -29,10 +29,15 @@ url_rstudio <- function(target, version = NULL) {
   # https://www.rstudio.com/products/rstudio/download/#download
   base <- "https://download1.rstudio.org/desktop"
   loc_linux <- c(
-                 ## ubuntu32 = "rstudio-%s-i386.deb",
-                 ubuntu64 = "trusty/rstudio-%s-amd64.deb",
-                 ## fedora32 = "rstudio-%s-i686.rpm",
-                 fedora64 = "centos7/x86_64/rstudio-%s-x86_64.rpm")
+                 trusty     = "trusty/amd64/rstudio-%s-amd64.deb",
+                 xenial     = "xenial/amd64/rstudio-%s-amd64.deb",
+                 bionic     = "bionic/amd64/rstudio-%s-amd64.deb",
+                 centos7    = "centos7/x86_64/rstudio-%s-x86_64.rpm",
+                 debian9    = "debian9/x86_64/rstudio-%s-x86_64.rpm",
+                 opensuse15 = "opensuse15/x86_64/rstudio-%s-x86_64.rpm",
+                 opensuse   = "opensuse/x86_64/rstudio-%s-x86_64.rpm",
+                 NULL
+                )
   loc <- c(windows = "windows/RStudio-%s.exe",
            macos   = "macos/RStudio-%s.dmg",
            loc_linux)
@@ -58,6 +63,8 @@ url_rstudio <- function(target, version = NULL) {
   if (is.null(version)) {
     version <- readLines("https://download1.rstudio.org/current.ver",
                          warn = FALSE)
+    # remove extra BS
+    version <- gsub("-1$", "", version)
   }
 
   ret <- file.path(base, sprintf(loc[target], version))
