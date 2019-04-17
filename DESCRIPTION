@@ -4,14 +4,19 @@ Version: 0.0.1
 Authors@R: c(person("Rich", "FitzJohn", email = "rich.fitzjohn@gmail.com",
                     role = c("aut", "cre")),
              person("Thibaut", "Jombart", email = "thibautjombart@gmail.com",
-                    role = c("aut")))
+                    role = c("aut")),
+             person("Zhian N.", "Kamvar", email = "zkamvar@gmail.com",
+                    role = c("ctb")),
+             NULL
+             )
 Maintainer: Rich FitzJohn <rich.fitzjohn@gmail.com>
 Description: Collects together all the bits required to easily install
   packages from R in situations with limited internet.
 License: MIT + file LICENSE
 Imports:
   provisionr (>= 0.1.5),
-  yaml
+  yaml,
+  utils
 Remotes:
   richfitz/provisionr
 RoxygenNote: 6.1.1

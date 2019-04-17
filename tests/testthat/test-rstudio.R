@@ -8,14 +8,16 @@ test_that("url_rstudio", {
 
 test_that("url_rstudio: target all", {
   u <- url_rstudio("ALL", "1.2.3")
-  expect_equal(sort(names(u)),
-               sort(c("windows", "macosx", "ubuntu64", "fedora64")))
+  expect_setequal(names(u), 
+                  c("windows", "macos", "trusty", "xenial", "bionic",
+                    "centos7", "debian9", "opensuse15", "opensuse"))
 })
 
 test_that("url_rstudio: linux", {
   u <- url_rstudio("linux", "1.2.3")
-  expect_equal(sort(names(u)),
-               sort(c("ubuntu64", "fedora64")))
+  expect_setequal(names(u),
+                  c("trusty", "xenial", "bionic", "centos7", "debian9",
+                    "opensuse15", "opensuse"))
 })
 
 test_that("url_rstudio: target invalid", {

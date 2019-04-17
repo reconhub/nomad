@@ -17,7 +17,7 @@ build <- function(ref, dest, progress = NULL) {
   dir.create(tmp, FALSE, TRUE)
   file <- sprintf("%s-%s.zip", dat$username, dat$repo)
   provisionr::download_files(url_zipball, tmp, dest_file = file, count = FALSE)
-  unzip(file.path(tmp, file), exdir = tmp)
+  utils::unzip(file.path(tmp, file), exdir = tmp)
   path <- setdiff(dir(tmp), file)
   stopifnot(length(path) == 1L)
   path <- file.path(tmp, path)
