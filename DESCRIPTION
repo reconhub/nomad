@@ -7,6 +7,7 @@ Authors@R: c(person("Rich", "FitzJohn", email = "rich.fitzjohn@gmail.com",
                     role = c("aut")),
              person("Zhian N.", "Kamvar", email = "zkamvar@gmail.com",
                     role = c("ctb")),
+             NULL
              )
 Maintainer: Rich FitzJohn <rich.fitzjohn@gmail.com>
 Description: Collects together all the bits required to easily install
