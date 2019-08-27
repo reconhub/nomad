@@ -9,7 +9,7 @@ local({
     stop(paste(msg, collapse = "\n"))
   }
 
-  nomad_url <- paste0("file:///", getwd())
+  nomad_url <- paste0("file:///", c(getwd(), file.path(getwd(), "drat")))
   nomad_url <- sub("file:////", "file:///", nomad_url)
   options(repos = nomad_url,
           nomad.location = getwd())
