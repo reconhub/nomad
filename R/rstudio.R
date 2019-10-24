@@ -64,7 +64,7 @@ url_rstudio <- function(target, version = NULL) {
     version <- readLines("https://download1.rstudio.org/current.ver",
                          warn = FALSE)
     # remove extra BS
-    version <- gsub("-1$", "", version)
+    version <- gsub("-\\d+$", "", version)
   }
 
   ret <- file.path(base, sprintf(loc[target], version))
