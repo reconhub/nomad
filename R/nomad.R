@@ -18,7 +18,7 @@ pack <- function(path, progress = NULL) {
   }
   cfg <- nomad_prepare(nomad_config(path))
 
-  target_includes_windows <- cfg$target %in% c("ALL", "windows")
+  target_includes_windows <- any(cfg$target %in% c("ALL", "windows"))
 
   ## Then we start the fun part:
   message("nomad: cran")
