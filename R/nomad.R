@@ -13,7 +13,7 @@
 ##'
 ##' @export
 pack <- function(path, progress = NULL) {
-  if (!file.exists(path) || !file.info(path)$isdir) {
+  if (!file.exists(path) || !all(file.info(path)$isdir)) {
     stop("'path' must be an existing directory")
   }
   cfg <- nomad_prepare(nomad_config(path))
