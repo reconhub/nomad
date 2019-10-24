@@ -13,12 +13,12 @@
 ##'
 ##' @export
 pack <- function(path, progress = NULL) {
-  if (!file.exists(path) || !all(file.info(path)$isdir)) {
+  if (!file.exists(path) || !file.info(path)$isdir) {
     stop("'path' must be an existing directory")
   }
   cfg <- nomad_prepare(nomad_config(path))
 
-  target_includes_windows <- cfg$target %in% c("ALL", "windows")
+  target_includes_windows <- any(cfg$target %in% c("ALL", "windows"))
 
   ## Then we start the fun part:
   message("nomad: cran")
