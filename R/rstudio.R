@@ -29,7 +29,6 @@ url_rstudio <- function(target, version = NULL) {
   # https://www.rstudio.com/products/rstudio/download/#download
   base <- "https://download1.rstudio.org/desktop"
   loc_linux <- c(
-                 trusty     = "trusty/amd64/rstudio-%s-amd64.deb",
                  xenial     = "xenial/amd64/rstudio-%s-amd64.deb",
                  bionic     = "bionic/amd64/rstudio-%s-amd64.deb",
                  centos7    = "centos7/x86_64/rstudio-%s-x86_64.rpm",
